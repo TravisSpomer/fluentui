@@ -55,7 +55,6 @@
     "syncpack:fix": "syncpack fix-mismatches --prod --dev --source \"{apps/*,packages/!(web-components),packages/fluentui/*,scripts,.}/package.json\"",
     "test": "lerna run test --stream",
     "test:fluentui:circulars": "gulp test:circulars:run",
-    "test:fluentui:e2e": "gulp test:e2e",
     "test:fluentui:visual": "gulp screener",
     "test:fluentui:projects": "gulp test:projects",
     "update-api": "cd packages/office-ui-fabric-react && npm run update-api",

@@ -73,10 +73,6 @@ jobs:
           BACKFILL_CACHE_PROVIDER_OPTIONS: '{"connectionString":"$(BACKFILL_CONNECTION_STRING)", "container":"$(BACKFILL_CONTAINER)"}'
 
       - script: |
-          yarn test:fluentui:e2e
-        displayName: E2E Tests
-
-      - script: |
           yarn test:fluentui:projects
         displayName: Project Tests
 

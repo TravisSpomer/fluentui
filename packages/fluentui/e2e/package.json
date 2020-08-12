@@ -29,6 +29,7 @@
   },
   "scripts": {
     "lint": "eslint --ext .js,.ts,.tsx .",
-    "lint:fix": "yarn lint --fix"
+    "lint:fix": "yarn lint --fix",
+    "test": "gulp test:e2e"
   }
 }
