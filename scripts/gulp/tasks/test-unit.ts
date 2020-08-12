@@ -1,4 +1,4 @@
-import { task } from 'gulp';
+import { task, series } from 'gulp';
 import yargs from 'yargs';
 
 import jest, { JestPluginConfig } from '../plugins/gulp-jest';
