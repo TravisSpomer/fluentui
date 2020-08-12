@@ -26,7 +26,7 @@ import componentInfoContext from '../../utils/componentInfoContext';
 type ComponentMenuItem = { displayName: string; type: string };
 
 const pkg = require('@fluentui/react-northstar/package.json');
-const componentMenu: ComponentMenuItem[] = componentInfoContext.parents;
+const componentMenu: ComponentMenuItem[] = _.sortBy(componentInfoContext.parents, 'displayName');
 const behaviorMenu: ComponentMenuItem[] = require('../../behaviorMenu');
 
 const componentsBlackList = ['Debug', 'Design', 'Datepicker'];

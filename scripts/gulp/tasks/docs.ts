@@ -18,10 +18,13 @@ import gulpComponentMenuBehaviors from '../plugins/gulp-component-menu-behaviors
 import gulpDoctoc from '../plugins/gulp-doctoc';
 import gulpExampleMenu from '../plugins/gulp-example-menu';
 import gulpExampleSource from '../plugins/gulp-example-source';
+import gulpReactDocgen from '../plugins/gulp-react-docgen';
 import { getRelativePathToSourceFile } from '../plugins/util';
 import webpackPlugin from '../plugins/gulp-webpack';
 import { Server } from 'http';
+import { findGitRoot, getAllPackageInfo } from '../../monorepo';
 import serve, { forceClose } from '../serve';
+import { spawnSync } from 'child_process';
 
 const { paths } = config;
 
@@ -131,6 +134,23 @@ task(
   ),
 );
 
+task('build:docs:assets:component:info', cb => {
+  const fluentRoot = path.resolve(findGitRoot(), 'packages', 'fluentui');
+  const lernaArgs = ['lerna', 'run', 'build:info'];
+
+  const result = spawnSync('yarn', lernaArgs, {
+    cwd: fluentRoot,
+    shell: true,
+    stdio: 'inherit',
+  });
+
+  if (result.status) {
+    throw new Error(result.error.toString() || `lerna run failed with status ${result.status}`);
+  }
+
+  cb();
+});
+
 task('build:docs', series('build:docs:assets', 'build:docs:webpack'));
 
 // ----------------------------------------
@@ -183,6 +203,28 @@ task('serve:docs:stop', () => forceClose(server));
 // Watch
 // ----------------------------------------
 
+task('watch:docs:component-info', () => {
+  Object.values(getAllPackageInfo()).forEach(pkg => {
+    if (pkg.packageJson.gulp?.componentInfo) {
+      const internalTask = () =>
+        src(pkg.packageJson.gulp?.componentInfo, { cwd: pkg.packagePath })
+          .pipe(
+            cacheNonCi(gulpReactDocgen(paths.docs('tsconfig.json'), ['DOMAttributes', 'HTMLAttributes']), {
+              name: 'componentInfo-3',
+            }),
+          )
+          .pipe(dest('componentInfo', { cwd: pkg.packagePath }));
+      // @ts-ignore
+      internalTask.displayName = 'build:docs:component-info';
+
+      const watcher = watch(pkg.packageJson.gulp?.componentInfo, { cwd: pkg.packagePath }, internalTask);
+
+      watcher.on('add', logWatchAdd);
+      watcher.on('change', logWatchChange);
+    }
+  });
+});
+
 task('watch:docs:component-menu-behaviors', cb => {
   watch(behaviorSrc, series('build:docs:component-menu-behaviors'))
     .on('add', logWatchAdd)
@@ -224,10 +266,10 @@ task('watch:docs:other', cb => {
   cb();
 });
 
-task('watch:docs', series('watch:docs:component-menu-behaviors', 'watch:docs:other'));
+task('watch:docs', series('watch:docs:component-menu-behaviors', 'watch:docs:other', 'watch:docs:component-info'));
 
 // ----------------------------------------
 // Default
 // ----------------------------------------
 
-task('docs', series('build:docs:assets', 'serve:docs:hot', 'watch:docs'));
+task('docs', series('build:docs:assets', 'build:docs:assets:component:info', 'serve:docs:hot', 'watch:docs'));
