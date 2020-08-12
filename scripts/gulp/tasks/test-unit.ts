@@ -25,7 +25,7 @@ if (process.env.TF_BUILD) {
 }
 
 task(
-  'test:jest',
+  'test',
   jest({
     config: './jest.config.js',
     ...jestConfigFromArgv,
@@ -33,7 +33,7 @@ task(
 );
 
 task(
-  'test:jest:watch',
+  'test:watch',
   jest({
     config: './jest.config.js',
     watchAll: true,
