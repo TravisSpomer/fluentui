@@ -1,4 +1,5 @@
 @import '~@fluentui/common-styles/dist/sass/focusBorder';
+@import '~@fluentui/common-styles/dist/sass/fluentuitokens';
 
 /**
  * TODO: Once theming is updated, consider removing all of this.
@@ -28,9 +29,9 @@
   --button-iconSize: 16px;
 
   /* borders and shadow */
-  --button-borderRadius: 2px;
-  --button-borderWidth: 1px;
-  --button-boxShadow: 0px 2px 4px -0.75px rgba(0, 0, 0, 0.1);
+  --button-borderRadius: var(--button-root-corner-radius);
+  --button-borderWidth: var(--button-root-stroke-width);
+  --button-boxShadow: none; //0px 2px 4px -0.75px rgba(0, 0, 0, 0.1);
   --button-disabled-boxShadow: none;
 
   /* transforms */
@@ -38,66 +39,67 @@
   --button-transition: transform 0.1s linear;
 
   /* TODO: Remove. Fonts should only be defined in the theme. */
-  --button-fontFamily: 'Segoe UI', 'Helvetica Neue', 'Apple Color Emoji', 'Segoe UI Emoji', Helvetica, Arial, sans-serif;
-  --button-fontSize: 14px;
-  --button-fontWeight: 600;
+  --button-fontFamily: var(--button-text-font-family);
+  --button-fontSize: var(--button-text-font-size);
+  --button-fontWeight: var(--button-text-font-weight);
 
   /* TODO: Consider remove. Colors should only be defined in the theme. */
 
   --button-focusColor: #000;
   --button-focusInnerColor: #fff;
 
-  --button-background: white;
-  --button-borderColor: rgb(225, 223, 221);
-  --button-contentColor: rgb(44, 38, 33);
+  --button-background: var(--button-root-fill-color-rest);
+  --button-borderColor: var(--button-root-stroke-color-rest);
+  --button-contentColor: var(--button-text-fill-color-rest);
   --button-iconColor: inherit;
 
-  --button-hovered-background: rgb(237, 235, 233);
-  --button-hovered-borderColor: var(--button-borderColor);
-  --button-hovered-contentColor: var(--button-contentColor);
+  --button-hovered-background: var(--button-root-fill-color-hover);
+  --button-hovered-borderColor: var(--button-root-stroke-color-hover);
+  --button-hovered-contentColor: var(--button-text-hover-color-rest);
   --button-hovered-iconColor: var(--button-iconColor);
 
-  --button-focused-background: var(--button-background);
-  --button-focused-borderColor: var(--button-borderColor);
-  --button-focused-contentColor: var(--button-contentColor);
+  --button-focused-background: var(--button-root-fill-color-rest);
+  --button-focused-borderColor: var(--button-root-stroke-color-rest);
+  --button-focused-contentColor: var(--button-text-fill-color-rest);
   --button-focused-iconColor: var(--button-iconColor);
 
-  --button-pressed-background: rgb(225, 223, 221);
-  --button-pressed-borderColor: var(--button-borderColor);
-  --button-pressed-contentColor: var(--button-contentColor);
+  --button-pressed-background: var(--button-root-fill-color-pressed);
+  --button-pressed-borderColor: var(--button-root-stroke-color-pressed);
+  --button-pressed-contentColor: var(--button-text-fill-color-pressed);
   --button-pressed-iconColor: var(--button-iconColor);
 
   --button-disabled-opacity: 1;
-  --button-disabled-background: rgb(237, 235, 233);
-  --button-disabled-borderColor: var(--button-disabled-background);
-  --button-disabled-contentColor: rgb(200, 198, 196);
-  --button-disabled-iconColor: var(--button-disabled-contentColor);
+  --button-disabled-background: var(--button-root-fill-color-disabled);
+  --button-disabled-borderColor: var(--button-root-stroke-color-disabled);
+  --button-disabled-contentColor: var(--button-text-fill-color-disabled);
+  --button-disabled-iconColor: var(--button-text-fill-color-disabled);
 
   /* TODO: Remove. Accent should only be defined in the theme, though primary depends on it. */
-  --accent-background: rgb(98, 100, 167);
-  --accent-borderColor: transparent;
-  --accent-contentColor: white;
+  --accent-background: var(--accentbutton-root-fill-color-rest);
+  --accent-borderColor: var(--accentbutton-root-stroke-color-rest);
+  --accent-contentColor: var(--accentbutton-text-fill-color-rest);
   --accent-iconColor: inherit;
 
-  --accent-hovered-background: rgb(88, 90, 150);
-  --accent-hovered-borderColor: var(--accent-borderColor);
-  --accent-hovered-contentColor: var(--accent-contentColor);
-  --accent-hovered-iconColor: var(--accent-icon);
+  --accent-hovered-background: var(--accentbutton-root-fill-color-hover);
+  --accent-hovered-borderColor: var(--accentbutton-root-stroke-color-hover);
+  --accent-hovered-contentColor: var(--accentbutton-text-hover-color-rest);
+  --accent-hovered-iconColor: var(--accentbutton-iconColor);
 
-  --accent-focused-background: rgb(88, 90, 150);
-  --accent-focused-borderColor: var(--accent-borderColor);
-  --accent-focused-contentColor: var(--accent-contentColor);
-  --accent-focused-iconColor: var(--accent-iconColor);
+  --accent-focused-background: var(--accentbutton-root-fill-color-rest);
+  --accent-focused-borderColor: var(--accentbutton-root-stroke-color-rest);
+  --accent-focused-contentColor: var(--accentbutton-text-fill-color-rest);
+  --accent-focused-iconColor: var(--accentbutton-iconColor);
 
-  --accent-pressed-background: rgb(70, 71, 117);
-  --accent-pressed-borderColor: var(--accent-borderColor);
-  --accent-pressed-contentColor: var(--accent-contentColor);
-  --accent-pressed-iconColor: var(--accent-iconColor);
+  --accent-pressed-background: var(--accentbutton-root-fill-color-pressed);
+  --accent-pressed-borderColor: var(--accentbutton-root-stroke-color-pressed);
+  --accent-pressed-contentColor: var(--accentbutton-text-fill-color-pressed);
+  --accent-pressed-iconColor: var(--accentbutton-iconColor);
 
-  --accent-disabled-background: rgb(237, 235, 233);
-  --accent-disabled-borderColor: var(--accent-disabled-background);
-  --accent-disabled-contentColor: rgb(200, 198, 196);
-  --accent-disabled-iconColor: var(--accent-disabled-contentColor);
+  --accent-disabled-opacity: 1;
+  --accent-disabled-background: var(--accentbutton-root-fill-color-disabled);
+  --accent-disabled-borderColor: var(--accentbutton-root-stroke-color-disabled);
+  --accent-disabled-contentColor: var(--accentbutton-text-fill-color-disabled);
+  --accent-disabled-iconColor: var(--accentbutton-text-fill-color-disabled);
 }
 
 /**
